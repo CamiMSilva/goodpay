@@ -1,23 +1,21 @@
 import controlerUserLogin from "./moduloInterface.js";
 
-//Elementos de avisos para uso do Bootstrap: modal, toast, alert
+//Trazendo elementos do Bootstrap para uso da main.js
 var myModal = new bootstrap.Modal(document.getElementById('myModal'))
 
 //Trazendo os botões da DOM em HTML
 const entrarUsuario = document.getElementById("btnEntrar")
 
+//Adicionando evento ao botão "Entrar", trazendo os valores usuário e senha do HTML pela DOM, devolvendo o alerta da interface.js pela DOM
 entrarUsuario.addEventListener("click", (evento) => {
-  let nome = document.getElementById("usuario").value,
+  let user = document.getElementById("usuario").value,
   senha = document.getElementById("senha").value
-  //Testando se os campos não estão vazios
-  if (!nome || nome===null || nome==="" || !senha || senha===null || senha==="") {
-    alert("Campos vazios! Não há como executar o login.")
-    document.getElementById("titleModal").innerHTML = "Campos Vazios"
-    document.getElementById("bodyModal").innerHTML = "Não há como executar o login com os campos vazios!"
-    document.getElementById("btnModalClose").innerHTML = "Fechar"
-    document.getElementById("btnModalSave").innerHTML = "Salvar"
-    myModal.show()
-  } else {
-    controlerUserLogin.loginInfo(nome, senha)
-  }
-})
+  let alertModal = controlerUserLogin.loginInfo(user, senha)
+  
+  document.getElementById("titleModal").innerHTML= alertModal.title
+  document.getElementById("bodyModal").innerHTML= alertModal.bodyModal
+  document.getElementById("btnModalClose").innerHTML= alertModal.b1
+  document.getElementById("btnModalSave").innerHTML= alertModal.b2
+
+  myModal.show()
+  })
