@@ -8,18 +8,29 @@ class ControlerUserLogin {
   checkLogin() {
     this.status = true
   }
+  checkOutLogin(){
+    this.status=false
+  }
   loginInfo(user, senha){
     var infoCheck = userLogin.find((userLogin) => userLogin.username === user)
+    //localStorage.clear
     if (user === null || senha === null | user === "" || senha === "") {
+      this.checkOutLogin()
+      localStorage.status=this.status
       return(comunicacaoModal.find((comunicacaoModal) =>comunicacaoModal.idModal === "camposVazios1"))
     } else if(!infoCheck) {
-      return(comunicacaoModal.find(comunicacaoModal => comunicacaoModal.idModal === 'usuarioNaoExiste1'))
+      this.checkOutLogin()
+      localStorage.status=this.status
+      return(comunicacaoModal.find((comunicacaoModal) => comunicacaoModal.idModal === 'usuarioNaoExiste1'))
     } else {
     if (infoCheck.senha === senha) {
       this.checkLogin()
-      return(comunicacaoModal.find(comunicacaoModal => comunicacaoModal.idModal === 'loginExecutado1'))
-    } else { 
-      return(comunicacaoModal.find(comunicacaoModal => comunicacaoModal.idModal === 'falhaLogin1'))
+      localStorage.status=this.status
+      return(comunicacaoModal.find((comunicacaoModal) => comunicacaoModal.idModal === 'loginExecutado1'))
+    } else {
+      this.checkOutLogin() 
+      localStorage.status=this.status
+      return(comunicacaoModal.find((comunicacaoModal) => comunicacaoModal.idModal === 'falhaLogin1'))
       }
     }
   }
